@@ -52,7 +52,7 @@
     "xstream": "^5.0.5"
   },
   "engines": {
-    "node": "v6.0.1",
+    "node": "6.0.1",
     "npm": "3.9.1"
   },
   "author": "William Castandet <wcastand@gmail.com> (https://github.com/wcastand)",
