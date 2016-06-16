@@ -154,7 +154,7 @@ var BubblingSimulator = (function () {
 }());
 exports.BubblingSimulator = BubblingSimulator;
 
-},{"./ScopeChecker":5,"./utils":18,"matches-selector":43}],3:[function(require,module,exports){
+},{"./ScopeChecker":5,"./utils":18,"matches-selector":44}],3:[function(require,module,exports){
 "use strict";
 var xstream_adapter_1 = require('@cycle/xstream-adapter');
 var BubblingSimulator_1 = require('./BubblingSimulator');
@@ -313,7 +313,7 @@ var ElementFinder = (function () {
 }());
 exports.ElementFinder = ElementFinder;
 
-},{"./ScopeChecker":5,"./utils":18,"matches-selector":43}],5:[function(require,module,exports){
+},{"./ScopeChecker":5,"./utils":18,"matches-selector":44}],5:[function(require,module,exports){
 "use strict";
 var ScopeChecker = (function () {
     function ScopeChecker(scope, isolateModule) {
@@ -367,7 +367,7 @@ var VNodeWrapper = (function () {
 }());
 exports.VNodeWrapper = VNodeWrapper;
 
-},{"./hyperscript":9,"snabbdom-selector/lib/classNameFromVNode":48,"snabbdom-selector/lib/selectorParser":49}],7:[function(require,module,exports){
+},{"./hyperscript":9,"snabbdom-selector/lib/classNameFromVNode":49,"snabbdom-selector/lib/selectorParser":50}],7:[function(require,module,exports){
 "use strict";
 var xstream_1 = require('xstream');
 function fromEvent(element, eventName, useCapture) {
@@ -386,7 +386,7 @@ function fromEvent(element, eventName, useCapture) {
 }
 exports.fromEvent = fromEvent;
 
-},{"xstream":72}],8:[function(require,module,exports){
+},{"xstream":73}],8:[function(require,module,exports){
 "use strict";
 var hyperscript_1 = require('./hyperscript');
 function isValidString(param) {
@@ -504,7 +504,7 @@ function h(sel, b, c) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = h;
 
-},{"snabbdom/is":59,"snabbdom/vnode":68}],10:[function(require,module,exports){
+},{"snabbdom/is":60,"snabbdom/vnode":69}],10:[function(require,module,exports){
 // import * as modules from './modules'
 // export {modules}
 "use strict";
@@ -621,7 +621,7 @@ exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 var makeHTMLDriver_1 = require('./makeHTMLDriver');
 exports.makeHTMLDriver = makeHTMLDriver_1.makeHTMLDriver;
 
-},{"./hyperscript":9,"./hyperscript-helpers":8,"./makeDOMDriver":13,"./makeHTMLDriver":14,"./mockDOMSource":15,"snabbdom/thunk":67}],11:[function(require,module,exports){
+},{"./hyperscript":9,"./hyperscript-helpers":8,"./makeDOMDriver":13,"./makeHTMLDriver":14,"./mockDOMSource":15,"snabbdom/thunk":68}],11:[function(require,module,exports){
 "use strict";
 var utils_1 = require('./utils');
 function isolateSource(source, scope) {
@@ -777,7 +777,7 @@ function makeDOMDriver(container, options) {
 }
 exports.makeDOMDriver = makeDOMDriver;
 
-},{"./DOMSource":3,"./VNodeWrapper":6,"./isolateModule":12,"./modules":16,"./transposition":17,"./utils":18,"@cycle/xstream-adapter":19,"snabbdom":66}],14:[function(require,module,exports){
+},{"./DOMSource":3,"./VNodeWrapper":6,"./isolateModule":12,"./modules":16,"./transposition":17,"./utils":18,"@cycle/xstream-adapter":19,"snabbdom":67}],14:[function(require,module,exports){
 "use strict";
 var xstream_adapter_1 = require('@cycle/xstream-adapter');
 var xstream_1 = require('xstream');
@@ -821,7 +821,7 @@ function makeHTMLDriver(options) {
 }
 exports.makeHTMLDriver = makeHTMLDriver;
 
-},{"./transposition":17,"@cycle/xstream-adapter":19,"snabbdom-to-html":51,"xstream":72}],15:[function(require,module,exports){
+},{"./transposition":17,"@cycle/xstream-adapter":19,"snabbdom-to-html":52,"xstream":73}],15:[function(require,module,exports){
 "use strict";
 var xstream_1 = require('xstream');
 var MockedDOMSource = (function () {
@@ -866,7 +866,7 @@ function mockDOMSource(mockConfig) {
 }
 exports.mockDOMSource = mockDOMSource;
 
-},{"xstream":72}],16:[function(require,module,exports){
+},{"xstream":73}],16:[function(require,module,exports){
 "use strict";
 var ClassModule = require('snabbdom/modules/class');
 exports.ClassModule = ClassModule;
@@ -883,7 +883,7 @@ exports.HeroModule = HeroModule;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = [StyleModule, ClassModule, PropsModule, AttrsModule];
 
-},{"snabbdom/modules/attributes":60,"snabbdom/modules/class":61,"snabbdom/modules/eventlisteners":62,"snabbdom/modules/hero":63,"snabbdom/modules/props":64,"snabbdom/modules/style":65}],17:[function(require,module,exports){
+},{"snabbdom/modules/attributes":61,"snabbdom/modules/class":62,"snabbdom/modules/eventlisteners":63,"snabbdom/modules/hero":64,"snabbdom/modules/props":65,"snabbdom/modules/style":66}],17:[function(require,module,exports){
 "use strict";
 var xstream_adapter_1 = require('@cycle/xstream-adapter');
 var xstream_1 = require('xstream');
@@ -933,7 +933,7 @@ function makeTransposeVNode(runStreamAdapter) {
 }
 exports.makeTransposeVNode = makeTransposeVNode;
 
-},{"@cycle/xstream-adapter":19,"xstream":72}],18:[function(require,module,exports){
+},{"@cycle/xstream-adapter":19,"xstream":73}],18:[function(require,module,exports){
 "use strict";
 function isElement(obj) {
     return typeof HTMLElement === "object" ?
@@ -1038,7 +1038,7 @@ var XStreamAdapter = {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = XStreamAdapter;
 
-},{"xstream":72}],20:[function(require,module,exports){
+},{"xstream":73}],20:[function(require,module,exports){
 "use strict";
 var base_1 = require('@cycle/base');
 var xstream_adapter_1 = require('@cycle/xstream-adapter');
@@ -1216,6 +1216,234 @@ module.exports = (function split(undef) {
 })();
 
 },{}],22:[function(require,module,exports){
+/*
+ * Date Format 1.2.3
+ * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+ * MIT license
+ *
+ * Includes enhancements by Scott Trenda <scott.trenda.net>
+ * and Kris Kowal <cixar.com/~kris.kowal/>
+ *
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ */
+
+(function(global) {
+  'use strict';
+
+  var dateFormat = (function() {
+      var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZWN]|'[^']*'|'[^']*'/g;
+      var timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g;
+      var timezoneClip = /[^-+\dA-Z]/g;
+  
+      // Regexes and supporting functions are cached through closure
+      return function (date, mask, utc, gmt) {
+  
+        // You can't provide utc if you skip other args (use the 'UTC:' mask prefix)
+        if (arguments.length === 1 && kindOf(date) === 'string' && !/\d/.test(date)) {
+          mask = date;
+          date = undefined;
+        }
+  
+        date = date || new Date;
+  
+        if(!(date instanceof Date)) {
+          date = new Date(date);
+        }
+  
+        if (isNaN(date)) {
+          throw TypeError('Invalid date');
+        }
+  
+        mask = String(dateFormat.masks[mask] || mask || dateFormat.masks['default']);
+  
+        // Allow setting the utc/gmt argument via the mask
+        var maskSlice = mask.slice(0, 4);
+        if (maskSlice === 'UTC:' || maskSlice === 'GMT:') {
+          mask = mask.slice(4);
+          utc = true;
+          if (maskSlice === 'GMT:') {
+            gmt = true;
+          }
+        }
+  
+        var _ = utc ? 'getUTC' : 'get';
+        var d = date[_ + 'Date']();
+        var D = date[_ + 'Day']();
+        var m = date[_ + 'Month']();
+        var y = date[_ + 'FullYear']();
+        var H = date[_ + 'Hours']();
+        var M = date[_ + 'Minutes']();
+        var s = date[_ + 'Seconds']();
+        var L = date[_ + 'Milliseconds']();
+        var o = utc ? 0 : date.getTimezoneOffset();
+        var W = getWeek(date);
+        var N = getDayOfWeek(date);
+        var flags = {
+          d:    d,
+          dd:   pad(d),
+          ddd:  dateFormat.i18n.dayNames[D],
+          dddd: dateFormat.i18n.dayNames[D + 7],
+          m:    m + 1,
+          mm:   pad(m + 1),
+          mmm:  dateFormat.i18n.monthNames[m],
+          mmmm: dateFormat.i18n.monthNames[m + 12],
+          yy:   String(y).slice(2),
+          yyyy: y,
+          h:    H % 12 || 12,
+          hh:   pad(H % 12 || 12),
+          H:    H,
+          HH:   pad(H),
+          M:    M,
+          MM:   pad(M),
+          s:    s,
+          ss:   pad(s),
+          l:    pad(L, 3),
+          L:    pad(Math.round(L / 10)),
+          t:    H < 12 ? 'a'  : 'p',
+          tt:   H < 12 ? 'am' : 'pm',
+          T:    H < 12 ? 'A'  : 'P',
+          TT:   H < 12 ? 'AM' : 'PM',
+          Z:    gmt ? 'GMT' : utc ? 'UTC' : (String(date).match(timezone) || ['']).pop().replace(timezoneClip, ''),
+          o:    (o > 0 ? '-' : '+') + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+          S:    ['th', 'st', 'nd', 'rd'][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10],
+          W:    W,
+          N:    N
+        };
+  
+        return mask.replace(token, function (match) {
+          if (match in flags) {
+            return flags[match];
+          }
+          return match.slice(1, match.length - 1);
+        });
+      };
+    })();
+
+  dateFormat.masks = {
+    'default':               'ddd mmm dd yyyy HH:MM:ss',
+    'shortDate':             'm/d/yy',
+    'mediumDate':            'mmm d, yyyy',
+    'longDate':              'mmmm d, yyyy',
+    'fullDate':              'dddd, mmmm d, yyyy',
+    'shortTime':             'h:MM TT',
+    'mediumTime':            'h:MM:ss TT',
+    'longTime':              'h:MM:ss TT Z',
+    'isoDate':               'yyyy-mm-dd',
+    'isoTime':               'HH:MM:ss',
+    'isoDateTime':           'yyyy-mm-dd\'T\'HH:MM:sso',
+    'isoUtcDateTime':        'UTC:yyyy-mm-dd\'T\'HH:MM:ss\'Z\'',
+    'expiresHeaderFormat':   'ddd, dd mmm yyyy HH:MM:ss Z'
+  };
+
+  // Internationalization strings
+  dateFormat.i18n = {
+    dayNames: [
+      'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+      'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+    ],
+    monthNames: [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+    ]
+  };
+
+function pad(val, len) {
+  val = String(val);
+  len = len || 2;
+  while (val.length < len) {
+    val = '0' + val;
+  }
+  return val;
+}
+
+/**
+ * Get the ISO 8601 week number
+ * Based on comments from
+ * http://techblog.procurios.nl/k/n618/news/view/33796/14863/Calculate-ISO-8601-week-and-year-in-javascript.html
+ *
+ * @param  {Object} `date`
+ * @return {Number}
+ */
+function getWeek(date) {
+  // Remove time components of date
+  var targetThursday = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  // Change date to Thursday same week
+  targetThursday.setDate(targetThursday.getDate() - ((targetThursday.getDay() + 6) % 7) + 3);
+
+  // Take January 4th as it is always in week 1 (see ISO 8601)
+  var firstThursday = new Date(targetThursday.getFullYear(), 0, 4);
+
+  // Change date to Thursday same week
+  firstThursday.setDate(firstThursday.getDate() - ((firstThursday.getDay() + 6) % 7) + 3);
+
+  // Check if daylight-saving-time-switch occured and correct for it
+  var ds = targetThursday.getTimezoneOffset() - firstThursday.getTimezoneOffset();
+  targetThursday.setHours(targetThursday.getHours() - ds);
+
+  // Number of weeks between target Thursday and first Thursday
+  var weekDiff = (targetThursday - firstThursday) / (86400000*7);
+  return 1 + Math.floor(weekDiff);
+}
+
+/**
+ * Get ISO-8601 numeric representation of the day of the week
+ * 1 (for Monday) through 7 (for Sunday)
+ * 
+ * @param  {Object} `date`
+ * @return {Number}
+ */
+function getDayOfWeek(date) {
+  var dow = date.getDay();
+  if(dow === 0) {
+    dow = 7;
+  }
+  return dow;
+}
+
+/**
+ * kind-of shortcut
+ * @param  {*} val
+ * @return {String}
+ */
+function kindOf(val) {
+  if (val === null) {
+    return 'null';
+  }
+
+  if (val === undefined) {
+    return 'undefined';
+  }
+
+  if (typeof val !== 'object') {
+    return typeof val;
+  }
+
+  if (Array.isArray(val)) {
+    return 'array';
+  }
+
+  return {}.toString.call(val)
+    .slice(8, -1).toLowerCase();
+};
+
+
+
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return dateFormat;
+    });
+  } else if (typeof exports === 'object') {
+    module.exports = dateFormat;
+  } else {
+    global.dateFormat = dateFormat;
+  }
+})(this);
+
+},{}],23:[function(require,module,exports){
 /**
  *  Firebase libraries for browser - npm package.
  *
@@ -1226,7 +1454,7 @@ module.exports = (function split(undef) {
 require('./firebase');
 module.exports = firebase;
 
-},{"./firebase":23}],23:[function(require,module,exports){
+},{"./firebase":24}],24:[function(require,module,exports){
 (function (global){
 /*! @license Firebase v3.0.5
     Build: 3.0.5-rc.2
@@ -1796,7 +2024,7 @@ ra.STATE_CHANGED="state_changed";sa.RUNNING="running";sa.PAUSED="paused";sa.SUCC
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * lodash 3.1.4 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -1929,7 +2157,7 @@ function isLength(value) {
 
 module.exports = baseFlatten;
 
-},{"lodash.isarguments":36,"lodash.isarray":37}],25:[function(require,module,exports){
+},{"lodash.isarguments":37,"lodash.isarray":38}],26:[function(require,module,exports){
 /**
  * lodash 3.0.3 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -1979,7 +2207,7 @@ function createBaseFor(fromRight) {
 
 module.exports = baseFor;
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /**
  * lodash 3.1.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -2038,7 +2266,7 @@ function indexOfNaN(array, fromIndex, fromRight) {
 
 module.exports = baseIndexOf;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /**
  * lodash 3.0.3 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -2108,7 +2336,7 @@ function baseUniq(array, iteratee) {
 
 module.exports = baseUniq;
 
-},{"lodash._baseindexof":26,"lodash._cacheindexof":29,"lodash._createcache":30}],28:[function(require,module,exports){
+},{"lodash._baseindexof":27,"lodash._cacheindexof":30,"lodash._createcache":31}],29:[function(require,module,exports){
 /**
  * lodash 3.0.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -2175,7 +2403,7 @@ function identity(value) {
 
 module.exports = bindCallback;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * lodash 3.0.2 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -2230,7 +2458,7 @@ function isObject(value) {
 
 module.exports = cacheIndexOf;
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function (global){
 /**
  * lodash 3.1.2 (Custom Build) <https://lodash.com/>
@@ -2326,7 +2554,7 @@ module.exports = createCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"lodash._getnative":31}],31:[function(require,module,exports){
+},{"lodash._getnative":32}],32:[function(require,module,exports){
 /**
  * lodash 3.9.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -2465,7 +2693,7 @@ function isNative(value) {
 
 module.exports = getNative;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function (global){
 /**
  * lodash 3.0.1 (Custom Build) <https://lodash.com/>
@@ -2529,7 +2757,7 @@ module.exports = root;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /**
  * lodash 3.2.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -2714,7 +2942,7 @@ function deburr(string) {
 
 module.exports = deburr;
 
-},{"lodash._root":32}],34:[function(require,module,exports){
+},{"lodash._root":33}],35:[function(require,module,exports){
 /**
  * lodash 3.2.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -2896,7 +3124,7 @@ function escape(string) {
 
 module.exports = escape;
 
-},{"lodash._root":32}],35:[function(require,module,exports){
+},{"lodash._root":33}],36:[function(require,module,exports){
 /**
  * lodash 3.0.2 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -2969,7 +3197,7 @@ var forOwn = createForOwn(baseForOwn);
 
 module.exports = forOwn;
 
-},{"lodash._basefor":25,"lodash._bindcallback":28,"lodash.keys":39}],36:[function(require,module,exports){
+},{"lodash._basefor":26,"lodash._bindcallback":29,"lodash.keys":40}],37:[function(require,module,exports){
 /**
  * lodash 3.0.8 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -3214,7 +3442,7 @@ function isObjectLike(value) {
 
 module.exports = isArguments;
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /**
  * lodash 3.0.4 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -3396,7 +3624,7 @@ function isNative(value) {
 
 module.exports = isArray;
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /**
  * lodash 3.1.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -3470,7 +3698,7 @@ var kebabCase = createCompounder(function(result, word, index) {
 
 module.exports = kebabCase;
 
-},{"lodash.deburr":33,"lodash.words":42}],39:[function(require,module,exports){
+},{"lodash.deburr":34,"lodash.words":43}],40:[function(require,module,exports){
 /**
  * lodash 3.1.2 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -3708,7 +3936,7 @@ function keysIn(object) {
 
 module.exports = keys;
 
-},{"lodash._getnative":31,"lodash.isarguments":36,"lodash.isarray":37}],40:[function(require,module,exports){
+},{"lodash._getnative":32,"lodash.isarguments":37,"lodash.isarray":38}],41:[function(require,module,exports){
 /**
  * lodash 3.6.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -3777,7 +4005,7 @@ function restParam(func, start) {
 
 module.exports = restParam;
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 /**
  * lodash 3.1.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern modularize exports="npm" -o ./`
@@ -3814,7 +4042,7 @@ var union = restParam(function(arrays) {
 
 module.exports = union;
 
-},{"lodash._baseflatten":24,"lodash._baseuniq":27,"lodash.restparam":40}],42:[function(require,module,exports){
+},{"lodash._baseflatten":25,"lodash._baseuniq":28,"lodash.restparam":41}],43:[function(require,module,exports){
 /**
  * lodash 3.2.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -4014,7 +4242,7 @@ function words(string, pattern, guard) {
 
 module.exports = words;
 
-},{"lodash._root":32}],43:[function(require,module,exports){
+},{"lodash._root":33}],44:[function(require,module,exports){
 'use strict';
 
 var proto = Element.prototype;
@@ -4044,7 +4272,7 @@ function match(el, selector) {
   }
   return false;
 }
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -4582,7 +4810,7 @@ function match(el, selector) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4668,7 +4896,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4755,13 +4983,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":45,"./encode":46}],48:[function(require,module,exports){
+},{"./decode":46,"./encode":47}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4801,7 +5029,7 @@ function classNameFromVNode(vNode) {
 
   return cn.trim();
 }
-},{"./selectorParser":49}],49:[function(require,module,exports){
+},{"./selectorParser":50}],50:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4859,7 +5087,7 @@ function selectorParser() {
     className: classes.join(' ')
   };
 }
-},{"browser-split":21}],50:[function(require,module,exports){
+},{"browser-split":21}],51:[function(require,module,exports){
 
 // All SVG children elements, not in this list, should self-close
 
@@ -4882,12 +5110,12 @@ module.exports = {
   'metadata': true,
   'title': true
 };
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 
 var init = require('./init');
 
 module.exports = init([require('./modules/attributes'), require('./modules/style')]);
-},{"./init":52,"./modules/attributes":53,"./modules/style":54}],52:[function(require,module,exports){
+},{"./init":53,"./modules/attributes":54,"./modules/style":55}],53:[function(require,module,exports){
 
 var parseSelector = require('./parse-selector');
 var VOID_ELEMENTS = require('./void-elements');
@@ -4947,7 +5175,7 @@ module.exports = function init(modules) {
     return tag.join('');
   };
 };
-},{"./container-elements":50,"./parse-selector":55,"./void-elements":56}],53:[function(require,module,exports){
+},{"./container-elements":51,"./parse-selector":56,"./void-elements":57}],54:[function(require,module,exports){
 
 var forOwn = require('lodash.forown');
 var escape = require('lodash.escape');
@@ -5012,7 +5240,7 @@ function setAttributes(values, target) {
     target[key] = value;
   });
 }
-},{"../parse-selector":55,"lodash.escape":34,"lodash.forown":35,"lodash.union":41}],54:[function(require,module,exports){
+},{"../parse-selector":56,"lodash.escape":35,"lodash.forown":36,"lodash.union":42}],55:[function(require,module,exports){
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var forOwn = require('lodash.forown');
@@ -5039,7 +5267,7 @@ module.exports = function style(vnode) {
 
   return styles.length ? 'style="' + styles.join('; ') + '"' : '';
 };
-},{"lodash.escape":34,"lodash.forown":35,"lodash.kebabcase":38}],55:[function(require,module,exports){
+},{"lodash.escape":35,"lodash.forown":36,"lodash.kebabcase":39}],56:[function(require,module,exports){
 
 // https://github.com/Matt-Esch/virtual-dom/blob/master/virtual-hyperscript/parse-tag.js
 
@@ -5086,7 +5314,7 @@ module.exports = function parseSelector(selector, upper) {
     className: classes.join(' ')
   };
 };
-},{"browser-split":21}],56:[function(require,module,exports){
+},{"browser-split":21}],57:[function(require,module,exports){
 
 // http://www.w3.org/html/wg/drafts/html/master/syntax.html#void-elements
 
@@ -5107,7 +5335,7 @@ module.exports = {
   track: true,
   wbr: true
 };
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 var VNode = require('./vnode');
 var is = require('./is');
 
@@ -5142,7 +5370,7 @@ module.exports = function h(sel, b, c) {
   return VNode(sel, data, children, text, undefined);
 };
 
-},{"./is":59,"./vnode":68}],58:[function(require,module,exports){
+},{"./is":60,"./vnode":69}],59:[function(require,module,exports){
 function createElement(tagName){
   return document.createElement(tagName);
 }
@@ -5198,13 +5426,13 @@ module.exports = {
   setTextContent: setTextContent
 };
 
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 module.exports = {
   array: Array.isArray,
   primitive: function(s) { return typeof s === 'string' || typeof s === 'number'; },
 };
 
-},{}],60:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 var booleanAttrs = ["allowfullscreen", "async", "autofocus", "autoplay", "checked", "compact", "controls", "declare", 
                 "default", "defaultchecked", "defaultmuted", "defaultselected", "defer", "disabled", "draggable", 
                 "enabled", "formnovalidate", "hidden", "indeterminate", "inert", "ismap", "itemscope", "loop", "multiple", 
@@ -5245,7 +5473,7 @@ function updateAttrs(oldVnode, vnode) {
 
 module.exports = {create: updateAttrs, update: updateAttrs};
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 function updateClass(oldVnode, vnode) {
   var cur, name, elm = vnode.elm,
       oldClass = oldVnode.data.class || {},
@@ -5265,7 +5493,7 @@ function updateClass(oldVnode, vnode) {
 
 module.exports = {create: updateClass, update: updateClass};
 
-},{}],62:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 var is = require('../is');
 
 function arrInvoker(arr) {
@@ -5308,7 +5536,7 @@ function updateEventListeners(oldVnode, vnode) {
 
 module.exports = {create: updateEventListeners, update: updateEventListeners};
 
-},{"../is":59}],63:[function(require,module,exports){
+},{"../is":60}],64:[function(require,module,exports){
 var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
 var nextFrame = function(fn) { raf(function() { raf(fn); }); };
 
@@ -5462,7 +5690,7 @@ function post() {
 
 module.exports = {pre: pre, create: create, destroy: destroy, post: post};
 
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 function updateProps(oldVnode, vnode) {
   var key, cur, old, elm = vnode.elm,
       oldProps = oldVnode.data.props || {}, props = vnode.data.props || {};
@@ -5482,7 +5710,7 @@ function updateProps(oldVnode, vnode) {
 
 module.exports = {create: updateProps, update: updateProps};
 
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
 var nextFrame = function(fn) { raf(function() { raf(fn); }); };
 
@@ -5548,7 +5776,7 @@ function applyRemoveStyle(vnode, rm) {
 
 module.exports = {create: updateStyle, update: updateStyle, destroy: applyDestroyStyle, remove: applyRemoveStyle};
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 // jshint newcap: false
 /* global require, module, document, Node */
 'use strict';
@@ -5817,7 +6045,7 @@ function init(modules, api) {
 
 module.exports = {init: init};
 
-},{"./htmldomapi.js":58,"./is":59,"./vnode":68}],67:[function(require,module,exports){
+},{"./htmldomapi.js":59,"./is":60,"./vnode":69}],68:[function(require,module,exports){
 var h = require('./h');
 
 function init(thunk) {
@@ -5852,14 +6080,14 @@ module.exports = function(name, fn /* args */) {
   });
 };
 
-},{"./h":57}],68:[function(require,module,exports){
+},{"./h":58}],69:[function(require,module,exports){
 module.exports = function(sel, data, children, text, elm) {
   var key = data === undefined ? undefined : data.key;
   return {sel: sel, data: data, children: children,
           text: text, elm: elm, key: key};
 };
 
-},{}],69:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6593,7 +6821,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":70,"punycode":44,"querystring":47}],70:[function(require,module,exports){
+},{"./util":71,"punycode":45,"querystring":48}],71:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -6611,7 +6839,7 @@ module.exports = {
   }
 };
 
-},{}],71:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -8298,7 +8526,7 @@ exports.MemoryStream = MemoryStream;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Stream;
 
-},{}],72:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 "use strict";
 var core_1 = require('./core');
 exports.Stream = core_1.Stream;
@@ -8306,7 +8534,7 @@ exports.MemoryStream = core_1.MemoryStream;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = core_1.Stream;
 
-},{"./core":71}],73:[function(require,module,exports){
+},{"./core":72}],74:[function(require,module,exports){
 'use strict';
 
 var _xstream = require('xstream');
@@ -8323,9 +8551,15 @@ var _dom = require('@cycle/dom');
 
 var _url = require('url');
 
+var _dateformat = require('dateformat');
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
 var _firebaseDriver = require('./firebaseDriver');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var city = (0, _url.parse)(window.location.href).path.replace('admin', '').replace(/\//g, '') || 'paris';
 _firebase2.default.initializeApp({
@@ -8334,17 +8568,68 @@ _firebase2.default.initializeApp({
   databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
   storageBucket: "extia-tv-cb8a6.appspot.com"
 });
+_firebase2.default.auth().signInWithEmailAndPassword('wcastandet@kilix.fr', 'extia-makers').catch(function (error) {
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(errorCode, errorMessage);
+});
+
+function createActions(DOM) {
+  var delete$ = DOM.select('.clear').events('click', { useCapture: true }).map(function (ev) {
+    return { id: ev.target.dataset.id, path: ev.target.dataset.path };
+  }).map(function (data) {
+    return {
+      type: 'remove',
+      path: data.path,
+      id: data.id
+    };
+  });
+
+  var addFormation$ = DOM.select('form#addF').events('submit', { useCapture: true }).map(function (ev) {
+    ev.preventDefault();
+    var v = ev.target.text.value;
+    var d = ev.target.date.value;
+    var t = ev.target.time.value;
+    ev.target.text.value = '';
+    return {
+      type: 'push',
+      path: 'formations',
+      payload: { created_at: Date.now(), date: d, time: t, text: v }
+    };
+  });
+  var addEvents$ = DOM.select('form#addE').events('submit', { useCapture: true }).map(function (ev) {
+    ev.preventDefault();
+    var v = ev.target.text.value;
+    var d = ev.target.date.value;
+    var t = ev.target.time.value;
+    ev.target.text.value = '';
+    return {
+      type: 'push',
+      path: 'events',
+      payload: { created_at: Date.now(), date: d, time: t, text: v }
+    };
+  });
+
+  return _xstream2.default.merge(addFormation$, addEvents$, delete$);
+}
 
 function main(_ref) {
   var DOM = _ref.DOM;
   var firebase = _ref.firebase;
 
+  var actions$ = createActions(DOM);
   var vtree$ = firebase.map(function (agency) {
-    console.log(agency);
-    return (0, _dom.h)('div', 'Hello');
+    var d = (0, _dateformat2.default)(Date.now(), 'yyyy-mm-dd');
+    var hh = (0, _dateformat2.default)(Date.now(), 'HH:MM');
+    return (0, _dom.h)('div', [(0, _dom.h)('h1', 'Agence Extia ' + agency.name), (0, _dom.h)('div#lists', [(0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les formations'), (0, _dom.h)('ul', [].concat(_toConsumableArray(agency.formations.map(function (y) {
+      return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time), (0, _dom.h)('i.material-icons.clear', { attrs: { 'data-id': y._id, 'data-path': 'formations' } }, 'clear')]);
+    })), [(0, _dom.h)('li.item.add', [(0, _dom.h)('form#addF', [(0, _dom.h)('input.main', { props: { type: 'text', name: 'text', placeholder: 'Nouvelle formation', autocomplete: 'off' } }), (0, _dom.h)('input', { props: { type: 'time', name: 'time', value: hh } }), (0, _dom.h)('input', { props: { type: 'date', name: 'date', value: d } }), (0, _dom.h)('button', { props: { type: 'submit' } }, 'Ajouter')])])]))]), (0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les évènements'), (0, _dom.h)('ul', [].concat(_toConsumableArray(agency.events.map(function (y) {
+      return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time), (0, _dom.h)('i.material-icons.clear', { attrs: { 'data-id': y._id, 'data-path': 'events' } }, 'clear')]);
+    })), [(0, _dom.h)('li.item.add', [(0, _dom.h)('form#addE', [(0, _dom.h)('input', { props: { type: 'text', name: 'text', placeholder: 'Nouveau events', autocomplete: 'off' } }), (0, _dom.h)('input', { props: { type: 'time', name: 'time', value: hh } }), (0, _dom.h)('input', { props: { type: 'date', name: 'date', value: d } }), (0, _dom.h)('button', { props: { type: 'submit' } }, 'Ajouter')])])]))])])]);
   });
   return {
-    DOM: vtree$
+    DOM: vtree$,
+    firebase: actions$
   };
 }
 
@@ -8353,12 +8638,15 @@ function main(_ref) {
   firebase: (0, _firebaseDriver.makeFireDriver)(city)
 });
 
-},{"./firebaseDriver":74,"@cycle/dom":10,"@cycle/xstream-run":20,"firebase":22,"url":69,"xstream":72}],74:[function(require,module,exports){
+},{"./firebaseDriver":75,"@cycle/dom":10,"@cycle/xstream-run":20,"dateformat":22,"firebase":23,"url":70,"xstream":73}],75:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.makeFireDriver = makeFireDriver;
 
 var _xstream = require('xstream');
@@ -8373,56 +8661,102 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+function reducer(state, action) {
+  switch (action.action) {
+    case 'add':
+      return [].concat(_toConsumableArray(state), [action.value]);
+    case 'remove':
+      return state.filter(function (x) {
+        return x._id !== action.id;
+      });
+    default:
+      return state;
+  }
+}
+
+function createSource(city) {
+  var initialState = {
+    name: '',
+    formations: [],
+    events: [],
+    messages: [],
+    video: ''
+  };
+  var agency = _firebase2.default.database().ref('agencies/' + city);
+  var formations = _firebase2.default.database().ref('formations/' + city);
+  var events = _firebase2.default.database().ref('events/' + city);
+  var messages = _firebase2.default.database().ref('messages/' + city);
+  var source = _xstream2.default.create({
+    start: function start(listener) {
+      agency.on('value', function (f) {
+        return listener.next({ type: 'agency', value: f.val() });
+      });
+
+      formations.on('child_added', function (f) {
+        return listener.next({ type: 'formation', action: 'add', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+      formations.on('child_removed', function (f) {
+        return listener.next({ type: 'formation', action: 'remove', id: f.getKey() });
+      });
+
+      events.on('child_added', function (f) {
+        return listener.next({ type: 'events', action: 'add', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+      events.on('child_removed', function (f) {
+        return listener.next({ type: 'events', action: 'remove', id: f.getKey() });
+      });
+
+      messages.on('child_added', function (f) {
+        return listener.next({ type: 'message', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+    },
+    stop: function stop() {
+      return console.log("stopped");
+    }
+  }).fold(function (state, action) {
+    switch (action.type) {
+      case 'agency':
+        return Object.assign({}, state, action.value);
+      case 'formation':
+        return Object.assign({}, state, { formations: reducer(state.formations, action) });
+      case 'events':
+        return Object.assign({}, state, { events: reducer(state.events, action) });
+      case 'message':
+        return Object.assign({}, state, { messages: reducer(state.messages, action) });
+      default:
+        return state;
+    }
+  }, initialState);
+
+  return source;
+}
+
 function makeFireDriver(city) {
-  return function () {
-    var initialState = {
-      name: '',
-      formations: [],
-      events: [],
-      messages: [],
-      video: ''
-    };
-    var agency = _firebase2.default.database().ref('agencies/' + city);
-    var formations = _firebase2.default.database().ref('formations/' + city);
-    var events = _firebase2.default.database().ref('events/' + city);
-    var messages = _firebase2.default.database().ref('messages/' + city);
-    var source = _xstream2.default.create({
-      start: function start(listener) {
-        agency.on('value', function (f) {
-          return listener.next({ type: 'agency', value: f.val() });
-        });
-        formations.on('child_added', function (f) {
-          return listener.next({ type: 'formation', value: f.val() });
-        });
-        events.on('child_added', function (f) {
-          return listener.next({ type: 'event', value: f.val() });
-        });
-        messages.on('child_added', function (f) {
-          return listener.next({ type: 'message', value: f.val() });
-        });
+  var source = createSource(city);
+  return function (actions$) {
+    actions$.addListener({
+      next: function next(action) {
+        switch (action.type) {
+          case 'push':
+            _firebase2.default.database().ref(action.path).child(city).push(action.payload);
+            break;
+          case 'remove':
+            _firebase2.default.database().ref(action.path + '/' + city + '/' + action.id).remove();
+            break;
+        }
       },
-      stop: function stop() {
-        return console.log("stopped");
+      error: function error(err) {
+        return err;
+      },
+      complete: function complete() {
+        return true;
       }
-    }).fold(function (state, action) {
-      switch (action.type) {
-        case 'agency':
-          return Object.assign({}, state, action.value);
-        case 'formation':
-          return Object.assign({}, state, { formations: [].concat(_toConsumableArray(state.formations), [action.value]) });
-        case 'event':
-          return Object.assign({}, state, { events: [].concat(_toConsumableArray(state.events), [action.value]) });
-        case 'message':
-          return Object.assign({}, state, { messages: [].concat(_toConsumableArray(state.messages), [action.value]) });
-        default:
-          return state;
-      }
-    }, initialState);
+    });
     return source;
   };
 }
 
-},{"firebase":22,"xstream":72}]},{},[73])
+},{"firebase":23,"xstream":73}]},{},[74])
 
 
 //# sourceMappingURL=admin.js.map

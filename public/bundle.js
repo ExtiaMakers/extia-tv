@@ -8312,6 +8312,9 @@ exports.default = core_1.Stream;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.makeFireDriver = makeFireDriver;
 
 var _xstream = require('xstream');
@@ -8326,51 +8329,97 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+function reducer(state, action) {
+  switch (action.action) {
+    case 'add':
+      return [].concat(_toConsumableArray(state), [action.value]);
+    case 'remove':
+      return state.filter(function (x) {
+        return x._id !== action.id;
+      });
+    default:
+      return state;
+  }
+}
+
+function createSource(city) {
+  var initialState = {
+    name: '',
+    formations: [],
+    events: [],
+    messages: [],
+    video: ''
+  };
+  var agency = _firebase2.default.database().ref('agencies/' + city);
+  var formations = _firebase2.default.database().ref('formations/' + city);
+  var events = _firebase2.default.database().ref('events/' + city);
+  var messages = _firebase2.default.database().ref('messages/' + city);
+  var source = _xstream2.default.create({
+    start: function start(listener) {
+      agency.on('value', function (f) {
+        return listener.next({ type: 'agency', value: f.val() });
+      });
+
+      formations.on('child_added', function (f) {
+        return listener.next({ type: 'formation', action: 'add', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+      formations.on('child_removed', function (f) {
+        return listener.next({ type: 'formation', action: 'remove', id: f.getKey() });
+      });
+
+      events.on('child_added', function (f) {
+        return listener.next({ type: 'events', action: 'add', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+      events.on('child_removed', function (f) {
+        return listener.next({ type: 'events', action: 'remove', id: f.getKey() });
+      });
+
+      messages.on('child_added', function (f) {
+        return listener.next({ type: 'message', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+    },
+    stop: function stop() {
+      return console.log("stopped");
+    }
+  }).fold(function (state, action) {
+    switch (action.type) {
+      case 'agency':
+        return Object.assign({}, state, action.value);
+      case 'formation':
+        return Object.assign({}, state, { formations: reducer(state.formations, action) });
+      case 'events':
+        return Object.assign({}, state, { events: reducer(state.events, action) });
+      case 'message':
+        return Object.assign({}, state, { messages: reducer(state.messages, action) });
+      default:
+        return state;
+    }
+  }, initialState);
+
+  return source;
+}
+
 function makeFireDriver(city) {
-  return function () {
-    var initialState = {
-      name: '',
-      formations: [],
-      events: [],
-      messages: [],
-      video: ''
-    };
-    var agency = _firebase2.default.database().ref('agencies/' + city);
-    var formations = _firebase2.default.database().ref('formations/' + city);
-    var events = _firebase2.default.database().ref('events/' + city);
-    var messages = _firebase2.default.database().ref('messages/' + city);
-    var source = _xstream2.default.create({
-      start: function start(listener) {
-        agency.on('value', function (f) {
-          return listener.next({ type: 'agency', value: f.val() });
-        });
-        formations.on('child_added', function (f) {
-          return listener.next({ type: 'formation', value: f.val() });
-        });
-        events.on('child_added', function (f) {
-          return listener.next({ type: 'event', value: f.val() });
-        });
-        messages.on('child_added', function (f) {
-          return listener.next({ type: 'message', value: f.val() });
-        });
+  var source = createSource(city);
+  return function (actions$) {
+    actions$.addListener({
+      next: function next(action) {
+        switch (action.type) {
+          case 'push':
+            _firebase2.default.database().ref(action.path).child(city).push(action.payload);
+            break;
+          case 'remove':
+            _firebase2.default.database().ref(action.path + '/' + city + '/' + action.id).remove();
+            break;
+        }
       },
-      stop: function stop() {
-        return console.log("stopped");
+      error: function error(err) {
+        return err;
+      },
+      complete: function complete() {
+        return true;
       }
-    }).fold(function (state, action) {
-      switch (action.type) {
-        case 'agency':
-          return Object.assign({}, state, action.value);
-        case 'formation':
-          return Object.assign({}, state, { formations: [].concat(_toConsumableArray(state.formations), [action.value]) });
-        case 'event':
-          return Object.assign({}, state, { events: [].concat(_toConsumableArray(state.events), [action.value]) });
-        case 'message':
-          return Object.assign({}, state, { messages: [].concat(_toConsumableArray(state.messages), [action.value]) });
-        default:
-          return state;
-      }
-    }, initialState);
+    });
     return source;
   };
 }
@@ -8420,9 +8469,9 @@ function main(_ref) {
 
   var vtree$ = firebase.map(function (agency) {
     return (0, _dom.h)('div', [(0, _dom.h)('h1', [(0, _dom.h)('span', 'Agence'), (0, _dom.h)('span', [(0, _dom.h)('span', 'Extia '), (0, _dom.h)('span', '' + agency.name)])]), (0, _dom.h)('div#lists', [(0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les formations de la semaine'), (0, _dom.h)('ul', agency.formations.map(function (y) {
-      return (0, _dom.h)('li', y.text);
+      return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time)]);
     }))]), (0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les évènements'), (0, _dom.h)('ul', agency.events.map(function (y) {
-      return (0, _dom.h)('li', y.text);
+      return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time)]);
     }))])]), renderVideo(agency)]);
   });
   return {

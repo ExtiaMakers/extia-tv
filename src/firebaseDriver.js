@@ -1,9 +1,19 @@
 import xs from 'xstream'
 import Firebase from 'firebase'
 
-export function makeFireDriver(city) {
-  return () => {
-    const initialState = {
+function reducer(state, action){
+  switch(action.action){
+    case 'add':
+      return [...state, action.value]
+    case 'remove':
+      return state.filter(x => x._id !== action.id)
+    default:
+      return state
+  }
+}
+
+function createSource(city){
+  const initialState = {
       name: ''
     , formations: []
     , events: []
@@ -17,9 +27,14 @@ export function makeFireDriver(city) {
     const source = xs.create({
       start: listener => {
         agency.on('value', f => listener.next({ type: 'agency', value: f.val()}))
-        formations.on('child_added', f => listener.next({ type: 'formation', value: f.val()}))
-        events.on('child_added', f => listener.next({ type: 'event', value: f.val()}))
-        messages.on('child_added', f => listener.next({ type: 'message', value: f.val()}))
+
+        formations.on('child_added', f => listener.next({ type: 'formation', action:'add', value: { _id: f.getKey(), ...f.val() } }))
+        formations.on('child_removed', f => listener.next({ type: 'formation', action:'remove', id: f.getKey() }))
+
+        events.on('child_added', f => listener.next({ type: 'events', action:'add', value: { _id: f.getKey(), ...f.val() } }))
+        events.on('child_removed', f => listener.next({ type: 'events', action:'remove', id: f.getKey() }))
+
+        messages.on('child_added', f => listener.next({ type: 'message', value: { _id: f.getKey(), ...f.val() } }))
       }
     , stop: () => console.log("stopped")
     })
@@ -28,15 +43,36 @@ export function makeFireDriver(city) {
         case 'agency':
           return Object.assign({}, state, action.value )
         case 'formation':
-          return Object.assign({}, state, { formations: [...state.formations, action.value] } )
-        case 'event':
-          return Object.assign({}, state, { events: [...state.events, action.value] } )
+          return Object.assign({}, state, { formations: reducer(state.formations, action) })
+        case 'events':
+          return Object.assign({}, state, { events: reducer(state.events, action) })
         case 'message':
-          return Object.assign({}, state, { messages: [...state.messages, action.value] } )
+          return Object.assign({}, state, { messages: reducer(state.messages, action) })
         default:
           return state
       }
     }, initialState)
+
+    return source
+}
+
+export function makeFireDriver(city) {
+  const source = createSource(city)
+  return (actions$) => {
+    actions$.addListener({
+      next: (action) => {
+        switch(action.type){
+          case 'push':
+            Firebase.database().ref(action.path).child(city).push(action.payload)
+            break
+          case 'remove':
+            Firebase.database().ref(`${action.path}/${city}/${action.id}`).remove()
+            break
+        }
+      }
+    , error: err => err
+    , complete: () => true
+    })
     return source
   }
 }

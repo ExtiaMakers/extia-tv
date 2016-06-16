@@ -41,11 +41,21 @@ function main({ DOM, firebase }){
     , h('div#lists', [
         h('div.list' , [
           h('h4', 'Les formations de la semaine')
-        , h('ul', agency.formations.map(y => h('li', y.text)))
+        , h('ul', agency.formations.map(y => h('li.item', [
+              h('span', y.text)
+            , h('span', y.date)
+            , h('span', y.time)
+            ]))
+          )
         ])
       , h('div.list', [
           h('h4', 'Les évènements')
-        , h('ul', agency.events.map(y => h('li', y.text)))
+        , h('ul', agency.events.map(y => h('li.item', [
+              h('span', y.text)
+            , h('span', y.date)
+            , h('span', y.time)
+            ]))
+          )
         ])
       ])
     , renderVideo(agency)

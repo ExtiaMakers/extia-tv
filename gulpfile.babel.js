@@ -81,7 +81,10 @@ function bundleBA() {
 ***********************************/
 function wcss(){ gulp.watch('src/**/*.styl', ['css']) }
 function css() {
-  return gulp.src('src/app.styl')
+  gulp.src('src/app.styl')
+  .pipe(stylus({compress: true}))
+  .pipe(gulp.dest('public'))
+  return gulp.src('src/admin.styl')
   .pipe(stylus({compress: true}))
   .pipe(gulp.dest('public'))
 }
