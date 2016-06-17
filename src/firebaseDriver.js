@@ -13,50 +13,52 @@ function reducer(state, action){
 }
 
 function createSource(city){
-  const initialState = {
-      name: ''
-    , formations: []
-    , events: []
-    , messages: []
-    , video: ''
+  const initialState = { name: '', formations: [], events: [], messages: [], video: '' }
+  const agency = Firebase.database().ref('agencies/' + city)
+  const formations = Firebase.database().ref('formations/' + city)
+  const events = Firebase.database().ref('events/' + city)
+  const messages = Firebase.database().ref('messages/' + city)
+
+  const source = xs.create({
+    start: listener => {
+      agency.on('value', f => listener.next({ type: 'agency', value: f.val()}))
+
+      formations.on('child_added', f => listener.next({ type: 'formation', action:'add', value: { _id: f.getKey(), ...f.val() } }))
+      formations.on('child_removed', f => listener.next({ type: 'formation', action:'remove', id: f.getKey() }))
+
+      events.on('child_added', f => listener.next({ type: 'events', action:'add', value: { _id: f.getKey(), ...f.val() } }))
+      events.on('child_removed', f => listener.next({ type: 'events', action:'remove', id: f.getKey() }))
+
+      messages.on('child_added', f => listener.next({ type: 'messages', action:'add', value: { _id: f.getKey(), ...f.val() } }))
+      messages.on('child_removed', f => listener.next({ type: 'messages', action:'remove', id: f.getKey() }))
     }
-    const agency = Firebase.database().ref('agencies/' + city)
-    const formations = Firebase.database().ref('formations/' + city)
-    const events = Firebase.database().ref('events/' + city)
-    const messages = Firebase.database().ref('messages/' + city)
-    const source = xs.create({
-      start: listener => {
-        agency.on('value', f => listener.next({ type: 'agency', value: f.val()}))
+  , stop: () => console.log("stopped")
+  })
+  .fold((state, action) => {
+    switch(action.type){
+      case 'agency':
+        return Object.assign({}, state, action.value )
+      case 'formation':
+        return Object.assign({}, state, { formations: reducer(state.formations, action) })
+      case 'events':
+        return Object.assign({}, state, { events: reducer(state.events, action) })
+      case 'messages':
+        return Object.assign({}, state, { messages: reducer(state.messages, action) })
+      default:
+        return state
+    }
+  }, initialState)
 
-        formations.on('child_added', f => listener.next({ type: 'formation', action:'add', value: { _id: f.getKey(), ...f.val() } }))
-        formations.on('child_removed', f => listener.next({ type: 'formation', action:'remove', id: f.getKey() }))
-
-        events.on('child_added', f => listener.next({ type: 'events', action:'add', value: { _id: f.getKey(), ...f.val() } }))
-        events.on('child_removed', f => listener.next({ type: 'events', action:'remove', id: f.getKey() }))
-
-        messages.on('child_added', f => listener.next({ type: 'message', value: { _id: f.getKey(), ...f.val() } }))
-      }
-    , stop: () => console.log("stopped")
-    })
-    .fold((state, action) => {
-      switch(action.type){
-        case 'agency':
-          return Object.assign({}, state, action.value )
-        case 'formation':
-          return Object.assign({}, state, { formations: reducer(state.formations, action) })
-        case 'events':
-          return Object.assign({}, state, { events: reducer(state.events, action) })
-        case 'message':
-          return Object.assign({}, state, { messages: reducer(state.messages, action) })
-        default:
-          return state
-      }
-    }, initialState)
-
-    return source
+  return source
 }
 
-export function makeFireDriver(city) {
+export function makeFireDriver(city, opt, admin = false) {
+  Firebase.initializeApp(opt)
+  if(admin)
+    Firebase.auth()
+    .signInWithEmailAndPassword('wcastandet@kilix.fr', 'extia-makers')
+    .catch(error => console.log( error.code,  error.message))
+
   const source = createSource(city)
   return (actions$) => {
     actions$.addListener({

@@ -1,24 +1,10 @@
 import xs from 'xstream'
-import Firebase from 'firebase'
-import { run } from '@cycle/xstream-run'
-import { makeDOMDriver, h } from '@cycle/dom'
 import {parse} from 'url'
 import dateformat from 'dateformat'
+import { run } from '@cycle/xstream-run'
+import { makeDOMDriver, h } from '@cycle/dom'
 
 import { makeFireDriver } from './firebaseDriver'
-
-const city = parse(window.location.href).path.replace('admin', '').replace(/\//g, '') || 'paris'
-Firebase.initializeApp({
-  apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
-  authDomain: "extia-tv-cb8a6.firebaseapp.com",
-  databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
-  storageBucket: "extia-tv-cb8a6.appspot.com",
-})
-Firebase.auth().signInWithEmailAndPassword('wcastandet@kilix.fr', 'extia-makers').catch(function(error) {
-  const errorCode = error.code
-  const errorMessage = error.message
-  console.log(errorCode, errorMessage)
-})
 
 function createActions(DOM) {
   const delete$ = DOM.select('.clear')
@@ -59,14 +45,29 @@ function createActions(DOM) {
     , payload: { created_at: Date.now(), date: d, time: t, text: v }
     }
   })
+  const addMessages$ = DOM.select('form#addM')
+  .events('submit', {useCapture: true})
+  .map(ev => {
+    ev.preventDefault()
+    const v = ev.target.text.value
+    const d = ev.target.date.value
+    const t = ev.target.time.value
+    ev.target.text.value = ''
+    return {
+      type: 'push'
+    , path: 'messages'
+    , payload: { created_at: Date.now(), date: d, time: t, text: v }
+    }
+  })
 
-  return xs.merge(addFormation$, addEvents$, delete$)
+  return xs.merge(addFormation$, addEvents$, addMessages$, delete$)
 }
 
 function main({ DOM, firebase }){
   const actions$ = createActions(DOM)
   const vtree$ = firebase
   .map(agency => {
+    console.log(agency)
     const d = dateformat(Date.now(), 'yyyy-mm-dd')
     const hh = dateformat(Date.now(), 'HH:MM')
     return h('div', [
@@ -112,6 +113,26 @@ function main({ DOM, firebase }){
             ])
           ])
         ])
+      , h('div.list.messages-list', [
+          h('h4', 'Les messages')
+        , h('ul',
+          [ ...agency.messages
+            .map(y => h('li.item', [
+              h('span', y.text)
+            , h('span', y.date)
+            , h('span', y.time)
+            , h('i.material-icons.clear', { attrs: { 'data-id': y._id, 'data-path': 'messages' } }, 'clear')
+            ]))
+          , h('li.item.add', [
+              h('form#addM', [
+                h('input', { props: { type: 'text', name:'text', placeholder: 'Nouveau message', autocomplete: 'off' } })
+              , h('input', { props: { type: 'time', name:'time', value: hh } })
+              , h('input', { props: { type: 'date', name:'date', value: d } })
+              , h('button', { props: { type: 'submit' } }, 'Ajouter')
+              ])
+            ])
+          ])
+        ])
       ])
     ])
   })
@@ -121,7 +142,13 @@ function main({ DOM, firebase }){
   }
 }
 
+const city = parse(window.location.href).path.replace('admin', '').replace(/\//g, '') || 'paris'
 run(main, {
   DOM: makeDOMDriver('#app')
-, firebase: makeFireDriver(city)
+, firebase: makeFireDriver(city, {
+    apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
+    authDomain: "extia-tv-cb8a6.firebaseapp.com",
+    databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
+    storageBucket: "extia-tv-cb8a6.appspot.com",
+  }, true)
 })

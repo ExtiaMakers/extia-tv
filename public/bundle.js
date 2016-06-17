@@ -8343,17 +8343,12 @@ function reducer(state, action) {
 }
 
 function createSource(city) {
-  var initialState = {
-    name: '',
-    formations: [],
-    events: [],
-    messages: [],
-    video: ''
-  };
+  var initialState = { name: '', formations: [], events: [], messages: [], video: '' };
   var agency = _firebase2.default.database().ref('agencies/' + city);
   var formations = _firebase2.default.database().ref('formations/' + city);
   var events = _firebase2.default.database().ref('events/' + city);
   var messages = _firebase2.default.database().ref('messages/' + city);
+
   var source = _xstream2.default.create({
     start: function start(listener) {
       agency.on('value', function (f) {
@@ -8375,7 +8370,10 @@ function createSource(city) {
       });
 
       messages.on('child_added', function (f) {
-        return listener.next({ type: 'message', value: _extends({ _id: f.getKey() }, f.val()) });
+        return listener.next({ type: 'messages', action: 'add', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+      messages.on('child_removed', function (f) {
+        return listener.next({ type: 'messages', action: 'remove', id: f.getKey() });
       });
     },
     stop: function stop() {
@@ -8389,7 +8387,7 @@ function createSource(city) {
         return Object.assign({}, state, { formations: reducer(state.formations, action) });
       case 'events':
         return Object.assign({}, state, { events: reducer(state.events, action) });
-      case 'message':
+      case 'messages':
         return Object.assign({}, state, { messages: reducer(state.messages, action) });
       default:
         return state;
@@ -8399,7 +8397,14 @@ function createSource(city) {
   return source;
 }
 
-function makeFireDriver(city) {
+function makeFireDriver(city, opt) {
+  var admin = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+
+  _firebase2.default.initializeApp(opt);
+  if (admin) _firebase2.default.auth().signInWithEmailAndPassword('wcastandet@kilix.fr', 'extia-makers').catch(function (error) {
+    return console.log(error.code, error.message);
+  });
+
   var source = createSource(city);
   return function (actions$) {
     actions$.addListener({
@@ -8431,10 +8436,6 @@ var _xstream = require('xstream');
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _firebase = require('firebase');
-
-var _firebase2 = _interopRequireDefault(_firebase);
-
 var _xstreamRun = require('@cycle/xstream-run');
 
 var _dom = require('@cycle/dom');
@@ -8445,12 +8446,6 @@ var _firebaseDriver = require('./firebaseDriver');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_firebase2.default.initializeApp({
-  apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
-  authDomain: "extia-tv-cb8a6.firebaseapp.com",
-  databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
-  storageBucket: "extia-tv-cb8a6.appspot.com"
-});
 function parseVideo(url) {
   var u = (0, _url.parse)(url);
   return url.indexOf('embed') === -1 ? u.protocol + '//' + u.hostname + '/embed/' + u.query.replace('v=', '') : url;
@@ -8472,7 +8467,9 @@ function main(_ref) {
       return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time)]);
     }))]), (0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les évènements'), (0, _dom.h)('ul', agency.events.map(function (y) {
       return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time)]);
-    }))])]), renderVideo(agency)]);
+    }))])]), (0, _dom.h)('div#bottom', [(0, _dom.h)('div#messages', [(0, _dom.h)('div.wrapper', [(0, _dom.h)('ul', agency.messages.map(function (y) {
+      return (0, _dom.h)('li.item', y.text);
+    }))])]), renderVideo(agency)])]);
   });
   return {
     DOM: vtree$
@@ -8481,10 +8478,15 @@ function main(_ref) {
 var city = window.location.pathname.replace('/', '') || 'paris';
 (0, _xstreamRun.run)(main, {
   DOM: (0, _dom.makeDOMDriver)('#app'),
-  firebase: (0, _firebaseDriver.makeFireDriver)(city)
+  firebase: (0, _firebaseDriver.makeFireDriver)(city, {
+    apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
+    authDomain: "extia-tv-cb8a6.firebaseapp.com",
+    databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
+    storageBucket: "extia-tv-cb8a6.appspot.com"
+  })
 });
 
-},{"./firebaseDriver":73,"@cycle/dom":10,"@cycle/xstream-run":20,"firebase":22,"url":69,"xstream":72}]},{},[74])
+},{"./firebaseDriver":73,"@cycle/dom":10,"@cycle/xstream-run":20,"url":69,"xstream":72}]},{},[74])
 
 
 //# sourceMappingURL=bundle.js.map

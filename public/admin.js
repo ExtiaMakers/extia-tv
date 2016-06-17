@@ -8541,38 +8541,21 @@ var _xstream = require('xstream');
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _firebase = require('firebase');
-
-var _firebase2 = _interopRequireDefault(_firebase);
-
-var _xstreamRun = require('@cycle/xstream-run');
-
-var _dom = require('@cycle/dom');
-
 var _url = require('url');
 
 var _dateformat = require('dateformat');
 
 var _dateformat2 = _interopRequireDefault(_dateformat);
 
+var _xstreamRun = require('@cycle/xstream-run');
+
+var _dom = require('@cycle/dom');
+
 var _firebaseDriver = require('./firebaseDriver');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var city = (0, _url.parse)(window.location.href).path.replace('admin', '').replace(/\//g, '') || 'paris';
-_firebase2.default.initializeApp({
-  apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
-  authDomain: "extia-tv-cb8a6.firebaseapp.com",
-  databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
-  storageBucket: "extia-tv-cb8a6.appspot.com"
-});
-_firebase2.default.auth().signInWithEmailAndPassword('wcastandet@kilix.fr', 'extia-makers').catch(function (error) {
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  console.log(errorCode, errorMessage);
-});
 
 function createActions(DOM) {
   var delete$ = DOM.select('.clear').events('click', { useCapture: true }).map(function (ev) {
@@ -8609,8 +8592,20 @@ function createActions(DOM) {
       payload: { created_at: Date.now(), date: d, time: t, text: v }
     };
   });
+  var addMessages$ = DOM.select('form#addM').events('submit', { useCapture: true }).map(function (ev) {
+    ev.preventDefault();
+    var v = ev.target.text.value;
+    var d = ev.target.date.value;
+    var t = ev.target.time.value;
+    ev.target.text.value = '';
+    return {
+      type: 'push',
+      path: 'messages',
+      payload: { created_at: Date.now(), date: d, time: t, text: v }
+    };
+  });
 
-  return _xstream2.default.merge(addFormation$, addEvents$, delete$);
+  return _xstream2.default.merge(addFormation$, addEvents$, addMessages$, delete$);
 }
 
 function main(_ref) {
@@ -8619,13 +8614,16 @@ function main(_ref) {
 
   var actions$ = createActions(DOM);
   var vtree$ = firebase.map(function (agency) {
+    console.log(agency);
     var d = (0, _dateformat2.default)(Date.now(), 'yyyy-mm-dd');
     var hh = (0, _dateformat2.default)(Date.now(), 'HH:MM');
     return (0, _dom.h)('div', [(0, _dom.h)('h1', 'Agence Extia ' + agency.name), (0, _dom.h)('div#lists', [(0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les formations'), (0, _dom.h)('ul', [].concat(_toConsumableArray(agency.formations.map(function (y) {
       return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time), (0, _dom.h)('i.material-icons.clear', { attrs: { 'data-id': y._id, 'data-path': 'formations' } }, 'clear')]);
     })), [(0, _dom.h)('li.item.add', [(0, _dom.h)('form#addF', [(0, _dom.h)('input.main', { props: { type: 'text', name: 'text', placeholder: 'Nouvelle formation', autocomplete: 'off' } }), (0, _dom.h)('input', { props: { type: 'time', name: 'time', value: hh } }), (0, _dom.h)('input', { props: { type: 'date', name: 'date', value: d } }), (0, _dom.h)('button', { props: { type: 'submit' } }, 'Ajouter')])])]))]), (0, _dom.h)('div.list', [(0, _dom.h)('h4', 'Les évènements'), (0, _dom.h)('ul', [].concat(_toConsumableArray(agency.events.map(function (y) {
       return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time), (0, _dom.h)('i.material-icons.clear', { attrs: { 'data-id': y._id, 'data-path': 'events' } }, 'clear')]);
-    })), [(0, _dom.h)('li.item.add', [(0, _dom.h)('form#addE', [(0, _dom.h)('input', { props: { type: 'text', name: 'text', placeholder: 'Nouveau events', autocomplete: 'off' } }), (0, _dom.h)('input', { props: { type: 'time', name: 'time', value: hh } }), (0, _dom.h)('input', { props: { type: 'date', name: 'date', value: d } }), (0, _dom.h)('button', { props: { type: 'submit' } }, 'Ajouter')])])]))])])]);
+    })), [(0, _dom.h)('li.item.add', [(0, _dom.h)('form#addE', [(0, _dom.h)('input', { props: { type: 'text', name: 'text', placeholder: 'Nouveau events', autocomplete: 'off' } }), (0, _dom.h)('input', { props: { type: 'time', name: 'time', value: hh } }), (0, _dom.h)('input', { props: { type: 'date', name: 'date', value: d } }), (0, _dom.h)('button', { props: { type: 'submit' } }, 'Ajouter')])])]))]), (0, _dom.h)('div.list.messages-list', [(0, _dom.h)('h4', 'Les messages'), (0, _dom.h)('ul', [].concat(_toConsumableArray(agency.messages.map(function (y) {
+      return (0, _dom.h)('li.item', [(0, _dom.h)('span', y.text), (0, _dom.h)('span', y.date), (0, _dom.h)('span', y.time), (0, _dom.h)('i.material-icons.clear', { attrs: { 'data-id': y._id, 'data-path': 'messages' } }, 'clear')]);
+    })), [(0, _dom.h)('li.item.add', [(0, _dom.h)('form#addM', [(0, _dom.h)('input', { props: { type: 'text', name: 'text', placeholder: 'Nouveau message', autocomplete: 'off' } }), (0, _dom.h)('input', { props: { type: 'time', name: 'time', value: hh } }), (0, _dom.h)('input', { props: { type: 'date', name: 'date', value: d } }), (0, _dom.h)('button', { props: { type: 'submit' } }, 'Ajouter')])])]))])])]);
   });
   return {
     DOM: vtree$,
@@ -8633,12 +8631,18 @@ function main(_ref) {
   };
 }
 
+var city = (0, _url.parse)(window.location.href).path.replace('admin', '').replace(/\//g, '') || 'paris';
 (0, _xstreamRun.run)(main, {
   DOM: (0, _dom.makeDOMDriver)('#app'),
-  firebase: (0, _firebaseDriver.makeFireDriver)(city)
+  firebase: (0, _firebaseDriver.makeFireDriver)(city, {
+    apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
+    authDomain: "extia-tv-cb8a6.firebaseapp.com",
+    databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
+    storageBucket: "extia-tv-cb8a6.appspot.com"
+  }, true)
 });
 
-},{"./firebaseDriver":75,"@cycle/dom":10,"@cycle/xstream-run":20,"dateformat":22,"firebase":23,"url":70,"xstream":73}],75:[function(require,module,exports){
+},{"./firebaseDriver":75,"@cycle/dom":10,"@cycle/xstream-run":20,"dateformat":22,"url":70,"xstream":73}],75:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8675,17 +8679,12 @@ function reducer(state, action) {
 }
 
 function createSource(city) {
-  var initialState = {
-    name: '',
-    formations: [],
-    events: [],
-    messages: [],
-    video: ''
-  };
+  var initialState = { name: '', formations: [], events: [], messages: [], video: '' };
   var agency = _firebase2.default.database().ref('agencies/' + city);
   var formations = _firebase2.default.database().ref('formations/' + city);
   var events = _firebase2.default.database().ref('events/' + city);
   var messages = _firebase2.default.database().ref('messages/' + city);
+
   var source = _xstream2.default.create({
     start: function start(listener) {
       agency.on('value', function (f) {
@@ -8707,7 +8706,10 @@ function createSource(city) {
       });
 
       messages.on('child_added', function (f) {
-        return listener.next({ type: 'message', value: _extends({ _id: f.getKey() }, f.val()) });
+        return listener.next({ type: 'messages', action: 'add', value: _extends({ _id: f.getKey() }, f.val()) });
+      });
+      messages.on('child_removed', function (f) {
+        return listener.next({ type: 'messages', action: 'remove', id: f.getKey() });
       });
     },
     stop: function stop() {
@@ -8721,7 +8723,7 @@ function createSource(city) {
         return Object.assign({}, state, { formations: reducer(state.formations, action) });
       case 'events':
         return Object.assign({}, state, { events: reducer(state.events, action) });
-      case 'message':
+      case 'messages':
         return Object.assign({}, state, { messages: reducer(state.messages, action) });
       default:
         return state;
@@ -8731,7 +8733,14 @@ function createSource(city) {
   return source;
 }
 
-function makeFireDriver(city) {
+function makeFireDriver(city, opt) {
+  var admin = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+
+  _firebase2.default.initializeApp(opt);
+  if (admin) _firebase2.default.auth().signInWithEmailAndPassword('wcastandet@kilix.fr', 'extia-makers').catch(function (error) {
+    return console.log(error.code, error.message);
+  });
+
   var source = createSource(city);
   return function (actions$) {
     actions$.addListener({

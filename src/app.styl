@@ -52,54 +52,47 @@ h1
   >span:last-child
     font-size 5rem
 
-#lists
-  one()
+#bottom
   f()
   horizontal()
-  jca()
-  ais()
-  acs()
-
-
-.list
-  f()
-  vertical()
-  jcs()
-  aist()
-  acc()
-  max-width 45%
-  border-radius 2px
-  box-shadow 0 3px 6px rgba(dark, 0.16), 0 3px 6px rgba(dark, 0.23)
-  h4
-    font-size 1.2rem
-    text-transform uppercase
-    background-color primary
-    color light
-    text-align left
-    padding 15px 20px
-  ul
-    min-width 350px
-  ul .item
-    f()
-    horizontal()
-    jcb()
-    aic()
-    acc()
-    padding 15px
-    font-size 1.3rem
-    span
-      margin-right 8px
-    i
-      z-index 999
-      cursor pointer
-      color dark
-      transform color .3 swift
-      &:hover
-        color primary
-
-#video
+  jcc()
+  aie()
   position absolute
-  bottom 30px
-  right 30px
-  padding 0
-  margin 0
+  bottom 0
+  left 0
+  width 100%
+
+#messages
+  one()
+  height 60px
+  overflow hidden
+  background-color primary
+  .wrapper
+    position relative
+    top 0
+    left 0
+    height 100%
+    margin 0
+    padding 0
+    transform: translateX(100%)
+    animation travel 20s linear 0s infinite
+    ul
+      f()
+      horizontal()
+      jcs()
+      aic()
+      acc()
+      height 100%
+      li
+        color light
+        padding 0 15px
+        white-space nowrap
+
+@keyframes travel
+  from
+    transform: translateX(100%)
+  to
+    transform translateX(-100%)
+
+
+@import './styl/list.styl'

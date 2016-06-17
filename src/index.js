@@ -1,17 +1,9 @@
 import xs from 'xstream'
-import Firebase from 'firebase'
 import { run } from '@cycle/xstream-run'
 import { makeDOMDriver, h } from '@cycle/dom'
 import {parse} from 'url'
 
 import { makeFireDriver } from './firebaseDriver'
-
-Firebase.initializeApp({
-  apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
-  authDomain: "extia-tv-cb8a6.firebaseapp.com",
-  databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
-  storageBucket: "extia-tv-cb8a6.appspot.com",
-})
 function parseVideo(url){
   const u = parse(url)
   return url.indexOf('embed') === -1
@@ -58,7 +50,16 @@ function main({ DOM, firebase }){
           )
         ])
       ])
-    , renderVideo(agency)
+    , h('div#bottom', [
+        h('div#messages', [
+          h('div.wrapper', [
+            h('ul',
+              agency.messages.map(y => h('li.item', y.text ))
+            )
+          ])
+        ])
+      , renderVideo(agency)
+      ])
     ])
   })
   return {
@@ -68,5 +69,10 @@ function main({ DOM, firebase }){
 const city = window.location.pathname.replace('/', '') || 'paris'
 run(main, {
   DOM: makeDOMDriver('#app')
-, firebase: makeFireDriver(city)
+, firebase: makeFireDriver(city, {
+    apiKey: "AIzaSyDySLvApaaAV36h81A-ZUsUD3nthtfGofs",
+    authDomain: "extia-tv-cb8a6.firebaseapp.com",
+    databaseURL: "https://extia-tv-cb8a6.firebaseio.com",
+    storageBucket: "extia-tv-cb8a6.appspot.com",
+  })
 })
